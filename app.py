@@ -9,7 +9,7 @@ load_dotenv()
 api_key = os.getenv("OPENAI_API_KEY")
 client = OpenAI(api_key=api_key)
 
-st.set_page_config(page_title="Hey Sush AI", page_icon="🤖", layout="centered")
+st.set_page_config(page_title="Hey Hem AI", page_icon="🤖", layout="centered")
 
 # ---------------------------
 # Custom CSS for ChatGPT-style UI
@@ -54,15 +54,15 @@ st.markdown("""
 # ---------------------------
 # Title
 # ---------------------------
-st.markdown("<div class='title'>🤖 Hey Sush AI</div>", unsafe_allow_html=True)
+st.markdown("<div class='title'>🤖 Hey Hem AI</div>", unsafe_allow_html=True)
 
 # ---------------------------
 # Initialize Chat History
 # ---------------------------
 if "messages" not in st.session_state:
     st.session_state["messages"] = [
-        {"role": "system", "content": "You are Hey Sush AI, a helpful, kind, and fun AI companion."},
-        {"role": "assistant", "content": "Hi 👋, I’m Sush! How can I help you today?"}
+        {"role": "system", "content": "You are Hey Hem AI, a helpful, kind, and fun AI companion."},
+        {"role": "assistant", "content": "Hi 👋, I’m Hem...For whom it may concern?"}
     ]
 
 # Display chat history
@@ -90,5 +90,5 @@ if user_input:
         st.session_state["messages"].append({"role": "assistant", "content": reply})
         st.markdown(f"<div class='ai-bubble'>{reply}</div>", unsafe_allow_html=True)
     except RateLimitError:
-        st.session_state["messages"].append({"role": "assistant", "content": "Oops! sush is too busy now. Please try again later."})
-        st.markdown("<div class='ai-bubble'>Oops! Oops! sush is too busy now. Please try again later.</div>", unsafe_allow_html=True)
+        st.session_state["messages"].append({"role": "assistant", "content": "Oops! hem is too busy now. Please try again later."})
+        st.markdown("<div class='ai-bubble'>Oops! hem is too busy now. Please try again later.</div>", unsafe_allow_html=True)
