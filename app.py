@@ -1,6 +1,7 @@
 import os
 import streamlit as st
 from openai import OpenAI
+from openai import RateLimitError
 from dotenv import load_dotenv
 
 # Load API key
@@ -80,11 +81,14 @@ if user_input:
     st.session_state["messages"].append({"role": "user", "content": user_input})
     st.markdown(f"<div class='user-bubble'>{user_input}</div>", unsafe_allow_html=True)
 
-    response = client.chat.completions.create(
-        model="gpt-4o-mini",
-        messages=st.session_state["messages"],
-    )
-
-    reply = response.choices[0].message.content
-    st.session_state["messages"].append({"role": "assistant", "content": reply})
-    st.markdown(f"<div class='ai-bubble'>{reply}</div>", unsafe_allow_html=True)
+    try:
+        response = client.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=st.session_state["messages"],
+        )
+        reply = response.choices[0].message.content
+        st.session_state["messages"].append({"role": "assistant", "content": reply})
+        st.markdown(f"<div class='ai-bubble'>{reply}</div>", unsafe_allow_html=True)
+    except RateLimitError:
+        st.session_state["messages"].append({"role": "assistant", "content": "Oops! sush is too busy now. Please try again later."})
+        st.markdown("<div class='ai-bubble'>Oops! Oops! sush is too busy now. Please try again later.</div>", unsafe_allow_html=True)
